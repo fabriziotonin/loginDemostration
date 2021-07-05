@@ -1,21 +1,144 @@
-import React from 'react'
-import { useUser } from '../../Context/UserContext';
+import React, { useState, useEffect } from "react";
+import { Col, Container, Row, Form, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useUser } from "../../Context/UserContext";
 
 export default function LoginPage() {
-  const { theme, toogleTheme } = useUser();
-  const darkStyle = {
-    backgroundColor: theme ? '#333' : '#CCC',
-    color: theme ? "#CCC" : '#333',
-    padding: '2rem',
-    margin: '2rem'
+  const [validated, setValidated] = useState(false);
+  const [inputLogin, setInputLogin] = useState({
+    email: "",
+    password: "",
+  });
+  const { theme } = useUser();
+
+  useEffect(() => {}, [inputLogin]);
+
+  const handleChange = (event) => {
+    setInputLogin({
+      ...inputLogin,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  async function handleSubmit(event) {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    if (
+      inputLogin.email === "" ||
+      inputLogin.password === "" ||
+      inputLogin.password >= 6
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+    if (form.checkValidity()) {
+      event.preventDefault();
+    }
   }
 
   return (
-    <>
-      <button onClick={toogleTheme}>cambiar tema</button>
-      <div style={darkStyle}>
-        Function theme
-      </div>
-    </>
-  )
+    <div className={theme ? "day" : "night"}>
+      <Container>
+        <Row className="justify-content-center align-items-center min-vh-100">
+          <Col xs={10}>
+            <div className="card-login o-hidden border-0 my-5">
+              <div className="card-body-login p-0">
+                <Row className="same-height-sing">
+                  <Col lg={6} className="d-lg-block bg-login-image"></Col>
+                  <Col lg={6}>
+                    <div className="p-5">
+                      <div className="text-center">
+                        <h1 className="h4 text-gray-900 mb-4">
+                          Wellcome to <b>ORTEX</b>
+                        </h1>
+                      </div>
+                      <div>
+                        <Form
+                          noValidate
+                          validated={validated}
+                          className="h-100"
+                          onSubmit={handleSubmit}
+                        >
+                          <Form.Group
+                            className="mt-2"
+                            controlId="validationCustom01"
+                          >
+                            <Form.Control
+                              onChange={handleChange}
+                              type="email"
+                              placeholder="Ingresar email"
+                              name="email"
+                              className={
+                                theme
+                                  ? "inputDay inputCommon"
+                                  : " inputNight inputCommon"
+                              }
+                              required
+                            />
+                            <Form.Control.Feedback>
+                              Se ve bien!
+                            </Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">
+                              Por Favor complete el campo correctamente
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                          <Form.Group
+                            className="my-3"
+                            controlId="validationCustom02"
+                          >
+                            <Form.Control
+                              onChange={handleChange}
+                              type="password"
+                              placeholder="Contraseña"
+                              minLength="6"
+                              name="password"
+                              className={
+                                theme
+                                  ? "inputDay inputCommon"
+                                  : " inputNight inputCommon"
+                              }
+                              required
+                            />
+                            <Form.Control.Feedback>
+                              Se ve bien!
+                            </Form.Control.Feedback>
+                            <Form.Control.Feedback type="invalid">
+                              Por Favor coloque una contraseña valida
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                          <Form.Group className="d-flex justify-content-around-res-log align-items-center">
+                            <Button
+                              className="mt-1 col-10 btnDay"
+                              type="submit"
+                            >
+                              Entrar
+                            </Button>
+                          </Form.Group>
+                          <Form.Group className="d-flex justify-content-around-res-log align-items-center">
+                            <Button
+                              className="mt-1 col-10 btnDay"
+                              as={Link}
+                              to="/registadmin"
+                            >
+                              Regist
+                            </Button>
+                          </Form.Group>
+                          <Link to="/reset-password">Fortgot password?</Link>
+                        </Form>
+                      </div>
+                      <hr />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 }
