@@ -2,9 +2,17 @@
   z-index: 1;
   justify-content: flex-end !important;
 }
-.btnDay {
-  background-color: #01bfbd !important;
+.btn-cicle-day {
+  padding: 10px 20px;
+  background-color: #fff;
+  border: none;
 }
+
+.btn-cicle-day img {
+  width: 20px;
+}
+/* Inputs logIn  */
+
 .inputCommon {
   border-radius: 25px !important;
   padding: 10px !important;
@@ -21,6 +29,8 @@
   border: 12px solid rgb(21, 126, 2) !important;
   box-shadow: none !important;
 }
+
+/* background */
 
 .day {
   position: absolute;
@@ -50,6 +60,8 @@
   overflow: hidden;
 }
 
+/* card login  */
+
 .card-login {
   position: relative;
   display: flex;
@@ -65,13 +77,38 @@
   flex: 1 1 auto;
 }
 
-.d-lg-block {
+.bg-img {
+  background-color: #253337;
 }
 .bg-login-image {
-  background-color: #253337;
-  /* background: url("https://ortex-static-files.s3.amazonaws.com/static/public/images/ortex_logo_v-white.svg");
+  background: url("https://ortex-static-files.s3.amazonaws.com/static/public/images/ortex_logo_v-white.svg");
   background-position: center;
-  background-repeat: no-repeat; */
+  background-repeat: no-repeat;
+  height: 150px;
+  margin-top: calc(50% - 75px);
+}
+
+/* Buttons for loggin and regist  */
+
+.btnLogin {
+  background-color: #146d6c !important;
+  border: 2px solid #fff !important;
+}
+.btnLogin:hover {
+  border: 2px solid #146d6c !important;
+  background-color: transparent !important;
+  color: #146d6c !important;
+}
+.btnRegist {
+  border-radius: 3px !important;
+  padding: 10px !important;
+  border: 2px solid #146d6c !important;
+  background-color: transparent !important;
+  color: #146d6c !important;
+}
+.btnRegist:hover {
+  background-color: #146d6c !important;
+  color: #fff !important;
 }
 
 .w-30-res-reg {

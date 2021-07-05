@@ -48,7 +48,9 @@ export default function LoginPage() {
             <div className="card-login o-hidden border-0 my-5">
               <div className="card-body-login p-0">
                 <Row className="same-height-sing">
-                  <Col lg={6} className="d-lg-block bg-login-image"></Col>
+                  <Col lg={6} className="d-lg-block bg-img">
+                    <div className="bg-login-image"></div>
+                  </Col>
                   <Col lg={6}>
                     <div className="p-5">
                       <div className="text-center">
@@ -70,7 +72,7 @@ export default function LoginPage() {
                             <Form.Control
                               onChange={handleChange}
                               type="email"
-                              placeholder="Ingresar email"
+                              placeholder="Example@gmail.com"
                               name="email"
                               className={
                                 theme
@@ -80,10 +82,10 @@ export default function LoginPage() {
                               required
                             />
                             <Form.Control.Feedback>
-                              Se ve bien!
+                              Looks good!
                             </Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">
-                              Por Favor complete el campo correctamente
+                              Please enter a valid email
                             </Form.Control.Feedback>
                           </Form.Group>
                           <Form.Group
@@ -93,7 +95,7 @@ export default function LoginPage() {
                             <Form.Control
                               onChange={handleChange}
                               type="password"
-                              placeholder="Contraseña"
+                              placeholder="Password"
                               minLength="6"
                               name="password"
                               className={
@@ -104,15 +106,15 @@ export default function LoginPage() {
                               required
                             />
                             <Form.Control.Feedback>
-                              Se ve bien!
+                              Looks good!
                             </Form.Control.Feedback>
                             <Form.Control.Feedback type="invalid">
-                              Por Favor coloque una contraseña valida
+                              Please enter a valid password
                             </Form.Control.Feedback>
                           </Form.Group>
                           <Form.Group className="d-flex justify-content-around-res-log align-items-center">
                             <Button
-                              className="mt-1 col-10 btnDay"
+                              className="mt-1 col-10 btnLogin "
                               type="submit"
                             >
                               Entrar
@@ -120,7 +122,7 @@ export default function LoginPage() {
                           </Form.Group>
                           <Form.Group className="d-flex justify-content-around-res-log align-items-center">
                             <Button
-                              className="mt-1 col-10 btnDay"
+                              className="mt-1 col-10 btnRegist"
                               as={Link}
                               to="/registadmin"
                             >
