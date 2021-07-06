@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Col, Container, Row, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
+import auth from "../../Helpers/auth";
 
-export default function LoginPage() {
+export default function LoginPage(props) {
   const [validated, setValidated] = useState(false);
   const [inputLogin, setInputLogin] = useState({
     email: "",
     password: "",
   });
-  const { theme } = useUser();
-
+  const { theme, loading } = useUser();
+  const history = useHistory();
   useEffect(() => {}, [inputLogin]);
 
   const handleChange = (event) => {
@@ -38,6 +39,10 @@ export default function LoginPage() {
     if (form.checkValidity()) {
       event.preventDefault();
     }
+
+    auth.login(() => {
+      history.push("/");
+    });
   }
 
   return (
@@ -54,9 +59,15 @@ export default function LoginPage() {
                   <Col lg={6}>
                     <div className="p-5">
                       <div className="text-center">
-                        <h1 className="h4 text-gray-900 mb-4">
-                          Wellcome to <b>ORTEX</b>
-                        </h1>
+                        {loading ? (
+                          <h1 className="h4 text-gray-900 mb-4">
+                            Login... in to <b>ORTEX</b>
+                          </h1>
+                        ) : (
+                          <h1 className="h4 text-gray-900 mb-4">
+                            Wellcome to <b>ORTEX</b>
+                          </h1>
+                        )}
                       </div>
                       <div>
                         <Form
