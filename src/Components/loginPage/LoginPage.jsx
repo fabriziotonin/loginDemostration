@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Col, Container, Row, Form, Button } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import FormLogin from "./FormLogin";
+import MyModal from "../../Helpers/MyModal";
+import ResetPassword from "../resetPassword/ResetPassword";
 import { useUser } from "../../Context/UserContext";
 import auth from "../../Helpers/auth";
 
-export default function LoginPage(props) {
+export default function LoginPage() {
   const [validated, setValidated] = useState(false);
   const [inputLogin, setInputLogin] = useState({
     email: "",
     password: "",
   });
-  const { theme, loading } = useUser();
+  const [openModal, setModal] = useState();
+  const { theme, setUser } = useUser();
   const history = useHistory();
   useEffect(() => {}, [inputLogin]);
 
@@ -32,8 +36,10 @@ export default function LoginPage(props) {
       inputLogin.password === "" ||
       inputLogin.password >= 6
     ) {
+      setValidated(true);
       event.preventDefault();
       event.stopPropagation();
+      return;
     }
     setValidated(true);
     if (form.checkValidity()) {
@@ -41,6 +47,7 @@ export default function LoginPage(props) {
     }
 
     auth.login(() => {
+      setUser(inputLogin);
       history.push("/");
     });
   }
@@ -59,89 +66,18 @@ export default function LoginPage(props) {
                   <Col lg={6}>
                     <div className="p-5">
                       <div className="text-center">
-                        {loading ? (
-                          <h1 className="h4 text-gray-900 mb-4">
-                            Login... in to <b>ORTEX</b>
-                          </h1>
-                        ) : (
-                          <h1 className="h4 text-gray-900 mb-4">
-                            Wellcome to <b>ORTEX</b>
-                          </h1>
-                        )}
+                        <h1 className="h4 text-gray-900 mb-4">
+                          Wellcome to <b>ORTEX</b>
+                        </h1>
                       </div>
                       <div>
-                        <Form
-                          noValidate
+                        <FormLogin
                           validated={validated}
-                          className="h-100"
-                          onSubmit={handleSubmit}
-                        >
-                          <Form.Group
-                            className="mt-2"
-                            controlId="validationCustom01"
-                          >
-                            <Form.Control
-                              onChange={handleChange}
-                              type="email"
-                              placeholder="Example@gmail.com"
-                              name="email"
-                              className={
-                                theme
-                                  ? "inputDay inputCommon"
-                                  : " inputNight inputCommon"
-                              }
-                              required
-                            />
-                            <Form.Control.Feedback>
-                              Looks good!
-                            </Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">
-                              Please enter a valid email
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                          <Form.Group
-                            className="my-3"
-                            controlId="validationCustom02"
-                          >
-                            <Form.Control
-                              onChange={handleChange}
-                              type="password"
-                              placeholder="Password"
-                              minLength="6"
-                              name="password"
-                              className={
-                                theme
-                                  ? "inputDay inputCommon"
-                                  : " inputNight inputCommon"
-                              }
-                              required
-                            />
-                            <Form.Control.Feedback>
-                              Looks good!
-                            </Form.Control.Feedback>
-                            <Form.Control.Feedback type="invalid">
-                              Please enter a valid password
-                            </Form.Control.Feedback>
-                          </Form.Group>
-                          <Form.Group className="d-flex justify-content-around-res-log align-items-center">
-                            <Button
-                              className="mt-1 col-10 btnLogin "
-                              type="submit"
-                            >
-                              Entrar
-                            </Button>
-                          </Form.Group>
-                          <Form.Group className="d-flex justify-content-around-res-log align-items-center">
-                            <Button
-                              className="mt-1 col-10 btnRegist"
-                              as={Link}
-                              to="/registadmin"
-                            >
-                              Regist
-                            </Button>
-                          </Form.Group>
-                          <Link to="/reset-password">Fortgot password?</Link>
-                        </Form>
+                          handleSubmit={handleSubmit}
+                          handleChange={handleChange}
+                          theme={theme}
+                          setModal={setModal}
+                        />
                       </div>
                       <hr />
                     </div>
@@ -152,6 +88,11 @@ export default function LoginPage(props) {
           </Col>
         </Row>
       </Container>
+      {openModal && (
+        <MyModal>
+          <ResetPassword setModal={setModal} />
+        </MyModal>
+      )}
     </div>
   );
 }

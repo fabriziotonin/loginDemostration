@@ -1,10 +1,12 @@
 import React from "react";
+import { useUser } from "../../Context/UserContext";
 import auth from "../../Helpers/auth";
 
 export default function HomePage(props) {
+  const { user, theme } = useUser();
   return (
     <div>
-      Home
+      WellCome {user.email}
       <button
         onClick={() => {
           auth.logout(() => {
