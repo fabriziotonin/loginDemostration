@@ -2,10 +2,13 @@ import React from "react";
 import { useUser } from "../../Context/UserContext";
 
 export default function NavBar() {
-  const { toogleTheme, theme } = useUser();
+  const { toogleTheme, theme, user } = useUser();
 
   return (
-    <div className="navbar">
+    <div className={theme ? "home-d navbar" : "home-n navbar"}>
+      <div className={theme ? "wellcome-night" : "wellcome-day"}>
+        Wellcome {user?.email}
+      </div>
       <button className="btn-cicle-day" onClick={toogleTheme}>
         {theme ? (
           <img src="https://img.icons8.com/ios/50/000000/crescent-moon.png" />

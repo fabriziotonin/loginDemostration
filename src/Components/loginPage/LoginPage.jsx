@@ -26,6 +26,7 @@ export default function LoginPage() {
   };
 
   async function handleSubmit(event) {
+    console.log(inputLogin);
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -34,18 +35,20 @@ export default function LoginPage() {
     if (
       inputLogin.email === "" ||
       inputLogin.password === "" ||
-      inputLogin.password >= 6
+      inputLogin.password <= 6
     ) {
       setValidated(true);
       event.preventDefault();
       event.stopPropagation();
+      console.log("==========");
+
       return;
     }
     setValidated(true);
     if (form.checkValidity()) {
       event.preventDefault();
     }
-
+    console.log("asdasd");
     auth.login(() => {
       setUser(inputLogin);
       history.push("/");

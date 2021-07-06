@@ -1,15 +1,21 @@
 .navbar {
   z-index: 1;
-  justify-content: flex-end !important;
 }
 .btn-cicle-day {
   padding: 10px 20px;
   background-color: #fff;
   border: none;
+  justify-content: flex-end !important;
 }
 
 .btn-cicle-day img {
   width: 20px;
+}
+.wellcome-day {
+  color: white;
+}
+.wellcome-night {
+  color: black;
 }
 /* Inputs logIn  */
 
@@ -31,7 +37,12 @@
 }
 
 /* background */
-
+.home-d {
+  background-color: #ccc;
+}
+.home-n {
+  background-color: #253337;
+}
 .day {
   position: absolute;
   top: 0;
